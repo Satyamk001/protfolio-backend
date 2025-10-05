@@ -6,8 +6,13 @@ const sendMail = require("./nodeMailer/index");
 const dotenv = require("dotenv");
 dotenv.config();
 const port = process.env.PORT || 3000;
-
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://satyamk001.netlify.app/", // replace with your React app's deployed URL
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 app.get("/health", (req, res) => {
