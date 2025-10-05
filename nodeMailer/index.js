@@ -1,37 +1,21 @@
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+// // sendMail.js
+const { Resend } = require("resend");
 
-const myAccount = {
-  email: process.env.EMAIL,
-  password: process.env.PASSWORD,
-};
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-if (!myAccount.email || !myAccount.password) {
-  console.error("EMAIL/PASSWORD env vars are missing. Configure your .env.");
-}
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: myAccount.email,
-    pass: myAccount.password,
-  },
-});
-
-const sendMail = async ({ from, subject, text }) => {
-  const mailOptions = {
-    from: myAccount.email,
-    to: myAccount.email,
-    replyTo: from,
-    subject,
-    text,
-  };
-
+const sendMail = async ({ name, email, message }) => {
   try {
-    const info = await transporter.sendMail(mailOptions);
-    return info; // success info
+    await resend.emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: process.env.EMAIL,
+      subject: `New message from ${name}`,
+      text: `Email: ${email}\n\nMessage:\n${message}`,
+    });
+
+    return { success: true };
   } catch (error) {
-    throw error; // throw to be caught in your route
+    console.error("Mail error:", error);
+    return { success: false, error };
   }
 };
 
