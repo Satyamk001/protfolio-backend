@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const sendMail = require("./nodeMailer/index");
+const dotenv = require("dotenv");
+dotenv.config();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
