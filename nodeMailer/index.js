@@ -8,8 +8,8 @@ const sendMail = async ({ from, subject, text }) => {
     await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: process.env.EMAIL,
-      subject: `New message from ${from}`,
-      text: `Email: ${subject}\n\nMessage:\n${text}`,
+      subject: `New message from ${subject}`,
+      text: `Email: ${from}\n\nMessage:\n${text}`,
     });
 
     return { success: true };
