@@ -8,9 +8,7 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: "https://satyamk001.netlify.app/", // replace with your React app's deployed URL
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "*",
   })
 );
 app.use(express.json());
