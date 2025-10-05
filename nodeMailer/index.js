@@ -3,13 +3,13 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const sendMail = async ({ name, email, message }) => {
+const sendMail = async ({ from, subject, text }) => {
   try {
     await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: process.env.EMAIL,
-      subject: `New message from ${name}`,
-      text: `Email: ${email}\n\nMessage:\n${message}`,
+      subject: `New message from ${from}`,
+      text: `Email: ${subject}\n\nMessage:\n${text}`,
     });
 
     return { success: true };
